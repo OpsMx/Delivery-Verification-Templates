@@ -1,0 +1,39 @@
+{
+  "templateName": "stackdriver-log-validator",
+  "monitoringProvider": "STACKDRIVER",
+  "scoringAlgorithm": "Canary",
+  "accountName": "oes-cluster-sd",
+  "index": "",
+  "namespace": null,
+  "regExFilter": false,
+  "regExResponseKey": "",
+  "regularExpression": "",
+  "filterKey": "resource.labels.pod_name",
+  "autoBaseline": false,
+  "sensitivity": "high",
+  "tags": [],
+  "errorTopics": [
+    {
+      "string": "OnOutOfMemoryError",
+      "topic": "CRITICAL",
+      "type": "default"
+    }
+  ],
+  "responseKeywords": "textPayload",
+  "logGroupName": "",
+  "logStreamName": "",
+  "region": "",
+  "verificationType": "VERIFICATION",
+  "testCaseKey": "",
+  "testSuiteKey": "",
+  "infoScoring": false,
+  "contextualCluster": false,
+  "contextualWindowSize": 25,
+  "tagEnabled": false,
+  "streamId": "",
+  "timestampKey": "",
+  "applicationId": 0,
+  "applicationName": "",
+  "emailId": "",
+  "versionNo": "v1.0"
+}
