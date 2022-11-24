@@ -16,6 +16,111 @@ data:
           "string": "OnOutOfMemoryError",
           "topic": "CRITICAL",
           "type": "default"
+        },
+        {
+          "string": "StackOverflowError",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "ClassNotFoundException",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "FileNotFoundException",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "ArrayIndexOutOfBounds",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "NullPointerException",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "StringIndexOutOfBoundsException",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "FATAL",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "SEVERE",
+          "topic": "CRITICAL",
+          "type": "default"
+        },
+        {
+          "string": "NoClassDefFoundError",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "NoSuchMethodFoundError",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "NumberFormatException",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "IllegalArgumentException",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "ParseException",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "SQLException",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "ArithmeticException",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "status=404",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "status=500",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "EXCEPTION",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "ERROR",
+          "topic": "ERROR",
+          "type": "default"
+        },
+        {
+          "string": "WARN",
+          "topic": "WARN",
+          "type": "default"
+        },
+        {
+          "string": "WARNING",
+          "topic": "WARN",
+          "type": "default"
         }
       ],
       "responseKeywords": "textPayload"
