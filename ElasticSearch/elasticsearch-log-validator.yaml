@@ -2,29 +2,27 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: elasticsearch-log-validator
-data: 
- Template: ISDTemplate
- TemplateType: LOG
- Json: |
-   {
-    "templateName": "elasticsearch-log-validator",
-    "monitoringProvider": "ELASTICSEARCH",
-    "accountName": "elastic-demoserver",
-    "index": "kubernetes*",
-    "filterKey": "kubernetes.pod_name",
-    "tags": [
-      {
-        "string": "outOfmemory",
-        "tag": "Customtag",
-        "id": ""
-      }
-    ],
-    "errorTopics": [
-      {
-        "string": "OnOutOfMemoryError",
-        "topic": "CRITICAL",
-        "type": "default"
-      }
-    ],
-    "responseKeywords": "log"
-  }
+data:
+  elasticsearch-log-validator: |
+    {
+     "templateName": "elasticsearch-log-validator",
+     "monitoringProvider": "ELASTICSEARCH",
+     "accountName": "elastic-demoserver",
+     "index": "kubernetes*",
+     "filterKey": "kubernetes.pod_name",
+     "tags": [
+     {
+       "string": "outOfmemory",
+       "tag": "Customtag",
+       "id": ""
+     }
+       ],
+     "errorTopics": [
+     {
+       "string": "WARNING",
+       "topic": "WARN",
+       "type": "default"
+     }
+     ],
+     "responseKeywords": "log"
+     }
