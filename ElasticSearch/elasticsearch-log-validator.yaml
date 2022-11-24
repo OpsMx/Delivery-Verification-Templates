@@ -10,7 +10,8 @@ data:
      "accountName": "elastic-demoserver",
      "index": "kubernetes*",
      "filterKey": "kubernetes.pod_name",
-     "tags": [
+     "tags": [],
+     "errorTopics": [
        {
          "string": "outOfmemory",
          "tag": "Customtag",
