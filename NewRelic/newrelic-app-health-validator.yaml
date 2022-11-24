@@ -149,5 +149,5 @@ data:
         ]
       },
       "templateName": "newrelic-app-health-validator",
-      "advancedProvider": "NEWRELIC",
+      "advancedProvider": "NEWRELIC"
     }
