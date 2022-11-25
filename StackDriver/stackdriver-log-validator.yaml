@@ -7,6 +7,7 @@ data:
     {
       "templateName": "stackdriver-log-validator",
       "monitoringProvider": "STACKDRIVER",
+      "scoringAlgorithm": "Canary",
       "accountName": "stackdriver-demosever",
       "filterKey": "resource.labels.pod_name",
       "tags": [],
