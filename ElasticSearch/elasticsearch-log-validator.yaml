@@ -8,6 +8,7 @@ data:
      "templateName": "elasticsearch-log-validator",
      "monitoringProvider": "ELASTICSEARCH",
      "accountName": "elastic-demoserver",
+     "scoringAlgorithm": "Canary",
      "index": "kubernetes*",
      "filterKey": "kubernetes.pod_name",
      "tags": [],
