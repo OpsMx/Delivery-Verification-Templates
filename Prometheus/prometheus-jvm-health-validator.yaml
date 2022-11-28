@@ -1,0 +1,238 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: prometheus-jmv-health-validator
+data:
+  prometheus-jmv-health-validator: |
+    {
+      "filterKey": "${namespace_key},${pod_key},${container_key},${app_key}",
+      "data": {
+        "percent_diff_threshold": "hard",
+        "isNormalize": false,
+        "groups": [
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(rate(container_cpu_usage_seconds_total{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"}[1m]))/avg(kube_pod_container_resource_limits_cpu_cores{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"}) * 100",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "CPU Usage Percentage"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(rate(container_cpu_usage_seconds_total{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"}[1m]))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "CPU Usage"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(rate(container_cpu_system_seconds_total{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"}[1m]))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "System CPU"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(rate(container_cpu_user_seconds_total{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"}[1m]))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "User CPU"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(container_memory_usage_bytes{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"})/avg(kube_pod_container_resource_limits_memory_bytes{namespace=\"${namespace_key}\", pod=~\"${pod_key}.*\",container=\"${container_key}\"}) * 100",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Memory Usage Percentage"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(sum by(kubernetes_pod_name)(jvm_memory_used_bytes{kubernetes_namespace=\"${namespace_key}\", area=\"heap\", kubernetes_pod_name=~\"${pod_key}.*\"}))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Average Heap Used"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(sum by(kubernetes_pod_name)(jvm_memory_committed_bytes{kubernetes_namespace=\"${namespace_key}\", area=\"heap\", kubernetes_pod_name=~\"${pod_key}.*\"}))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Average Heap Committed"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(sum by(kubernetes_pod_name)(jvm_memory_used_bytes{kubernetes_namespace=\"${namespace_key}\", area=\"heap\", kubernetes_pod_name=~\"${pod_key}.*\"}))/avg(sum by(kubernetes_pod_name)(jvm_memory_max_bytes{kubernetes_namespace=\"${namespace_key}\", area=\"heap\", kubernetes_pod_name=~\"${pod_key}.*\"})) * 100",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Average Heap Consumed Percentage"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(sum by(kubernetes_pod_name)(jvm_memory_used_bytes{kubernetes_namespace=\"${namespace_key}\", area=\"nonheap\", kubernetes_pod_name=~\"${pod_key}.*\"}))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Average Non Heap Used"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(sum by(kubernetes_pod_name)(jvm_memory_committed_bytes{kubernetes_namespace=\"${namespace_key}\", area=\"nonheap\", kubernetes_pod_name=~\"${pod_key}.*\"}))",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Average No Heap Committed"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(jvm_threads_live_threads{app=\"${app_key}\",kubernetes_namespace=\"${namespace_key}\",kubernetes_pod_name=~\"${pod_key}-.*\"})",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Total Threads"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(jvm_threads_daemon_threads{app=\"${app_key}\",kubernetes_namespace=\"${namespace_key}\",kubernetes_pod_name=~\"${pod_key}-.*\"})",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Daemon Threads"
+          },
+          {
+            "metrics": [
+              {
+                "metricType": "ADVANCED",
+                "metricWeight": 1,
+                "nanStrategy": "Remove",
+                "accountName": "isd312-saas-prom",
+                "riskDirection": "HigherOrLower",
+                "customThresholdHigher": 50,
+                "name": "avg(jvm_threads_live_threads{app=\"${app_key}\",kubernetes_namespace=\"${namespace_key}\",kubernetes_pod_name=~\"${pod_key}-.*\",state=\"blocked\"}) or vector(0)",
+                "criticality": "Normal",
+                "customThresholdLower": "10",
+                "watchlist": false
+              }
+            ],
+            "group": "Blocked Threads"
+          }
+        ]
+      },
+      "templateName": "prometheus-jvm-health-validator",
+      "advancedProvider": "PROMETHEUS"
+    }
