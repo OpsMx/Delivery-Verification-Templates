@@ -13,14 +13,7 @@ data:
      "filterKey": "kubernetes.pod_name",
      "tags": [],
      "errorTopics": [
-       {
-         "string": "outOfmemory",
-         "tag": "Customtag",
-         "id": ""
-       }
-         ],
-       "errorTopics": [
-       {
+      {
         "string": "OnOutOfMemoryError",
         "topic": "CRITICAL",
         "type": "default"
