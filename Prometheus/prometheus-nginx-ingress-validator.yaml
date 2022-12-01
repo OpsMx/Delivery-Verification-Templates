@@ -36,7 +36,7 @@ data:
                 "accountName": "prometheus",
                 "riskDirection": "Lower",
                 "customThresholdHigher": 50,
-                "name": "avg(rate(nginx_ingress_controller_ingress_upstream_latency_seconds{namespace=\"${namespace_key}\", service= \"${service}\",ingress = \"${ingress}\", quantile =\"0.5\"}[5m]))",
+                "name": "nginx_ingress_controller_ingress_upstream_latency_seconds{namespace=\"${namespace_key}\", service= \"${service}\",ingress = \"${ingress}\", quantile =\"0.5\"}",
                 "criticality": "Normal",
                 "customThresholdLower": 90,
                 "watchlist": false
@@ -53,7 +53,7 @@ data:
                 "accountName": "prometheus",
                 "riskDirection": "Lower",
                 "customThresholdHigher": 50,
-                "name": "avg(rate(nginx_ingress_controller_ingress_upstream_latency_seconds{namespace=\"${namespace_key}\", service= \"${service}\",ingress = \"${ingress}\", quantile =\"0.9\"}[5m]))",
+                "name": "nginx_ingress_controller_ingress_upstream_latency_seconds{namespace=\"${namespace_key}\", service= \"${service}\",ingress = \"${ingress}\", quantile =\"0.9\"}",
                 "criticality": "Normal",
                 "customThresholdLower": 90,
                 "watchlist": false
@@ -70,7 +70,7 @@ data:
                 "accountName": "prometheus",
                 "riskDirection": "Lower",
                 "customThresholdHigher": 50,
-                "name": "avg(rate(nginx_ingress_controller_ingress_upstream_latency_seconds{namespace=\"${namespace_key}\", service= \"${service}\",ingress = \"${ingress}\", quantile =\"0.99\"}[5m]))",
+                "name": "nginx_ingress_controller_ingress_upstream_latency_seconds{namespace=\"${namespace_key}\", service= \"${service}\",ingress = \"${ingress}\", quantile =\"0.99\"}",
                 "criticality": "Normal",
                 "customThresholdLower": 90,
                 "watchlist": false
