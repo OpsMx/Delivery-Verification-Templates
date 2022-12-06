@@ -3,6 +3,7 @@ kind: ConfigMap
 metadata:
   name: datadog-app-health-validator
 data:
+  #update queries 
   datadog-app-health-validator: |
     {
       "filterKey": "${app_key},${host_key}",
