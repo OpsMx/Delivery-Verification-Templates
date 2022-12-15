@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: prometheus-app-health-generic-min
+  name: prometheus-app-health-springboot-min
 data:
   prometheus-app-health-generic-min: |
     accountName: prometheus-account-name
