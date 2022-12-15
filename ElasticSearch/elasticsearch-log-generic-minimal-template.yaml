@@ -7,4 +7,5 @@ data:
     monitoringProvider: ELASTICSEARCH
     accountName: elastic-account-name
     index: kubernetes*
+    filterKey: kubernetes.pod_name
     responseKeywords: log
