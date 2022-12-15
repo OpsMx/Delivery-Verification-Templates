@@ -10,11 +10,11 @@ data:
     metricTemplateSetup:
       groups:
         - metrics:
-            - name: "avg(container_memory_usage_bytes{namespace=\"${namespace_key}\", pod=~\".*${pod_key}.*\"})"
+            - name: "avg(container_memory_usage_bytes{namespace=\"${namespace_key}\", pod=~\"${pod_key}\"})"
               riskDirection: higher
           group: "Memory Usage By Pod Name"
         - metrics:
-            - name: "avg(rate(container_cpu_usage_seconds_total{namespace=\"${namespace_key}\", pod=~\".*${pod_key}.*\"}[1m]) * 100)"
+            - name: "avg(rate(container_cpu_usage_seconds_total{namespace=\"${namespace_key}\", pod=~\"${pod_key}\"}[1m]) * 100)"
               riskDirection: higher
           group: "CPU Usage By Pod Name"
         - metrics:
@@ -22,7 +22,7 @@ data:
               riskDirection: higher
           group: "Application Latency"
         - metrics:
-            - name: "avg(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[5m]))"
+            - name: "avg(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[1m]))"
               riskDirection: higherOrLower
           group: "Application Request Rate"
         - metrics:
