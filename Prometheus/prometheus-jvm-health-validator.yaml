@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: prometheus-jmv-health-validator
+  name: prometheus-jvm-health-validator
 data:
-  prometheus-jmv-health-validator: |
+  prometheus-jvm-health-validator: |
     {
       "filterKey": "${namespace_key},${pod_key},${container_key},${app_key}",
       "data": {
