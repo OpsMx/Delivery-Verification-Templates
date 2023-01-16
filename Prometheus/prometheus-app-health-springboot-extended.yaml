@@ -4,7 +4,7 @@ metadata:
   name: prometheus-app-health-springboot-ext
 data:
   prometheus-app-health-springboot-ext: |
-    accountName: isd312-saas-prom
+    accountName: prometheus-account
     metricType: ADVANCED
     advancedProvider: PROMETHEUS
     metricWeight: 1
