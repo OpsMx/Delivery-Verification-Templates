@@ -4,99 +4,28 @@ metadata:
   name: prometheus-app-health-validator
 data:
   prometheus-app-health-validator: |
-    {
-      "filterKey": "${namespace_key},${pod_key},${app_name}",
-      "data": {
-        "percent_diff_threshold": "hard",
-        "isNormalize": false,
-        "groups": [
-          {
-            "metrics": [
-              {
-                "metricType": "ADVANCED",
-                "metricWeight": 1,
-                "nanStrategy": "ReplaceWithZero",
-                "accountName": "prometheus",
-                "riskDirection": "Higher",
-                "customThresholdHigher": 70,
-                "name": "avg(rate(container_cpu_usage_seconds_total{namespace=\"${namespace_key}\", pod=~\".*${pod_key}.*\"}[1m]) * 100)",
-                "criticality": "Normal",
-                "customThresholdLower": "10",
-                "watchlist": false
-              }
-            ],
-            "group": "CPU Usage By Pod Name"
-          },
-          {
-            "metrics": [
-              {
-                "metricType": "ADVANCED",
-                "metricWeight": 1,
-                "nanStrategy": "ReplaceWithZero",
-                "accountName": "prometheus",
-                "riskDirection": "Higher",
-                "customThresholdHigher": 70,
-                "name": "avg(container_memory_usage_bytes{namespace=\"${namespace_key}\", pod=~\".*${pod_key}.*\"})",
-                "criticality": "Normal",
-                "customThresholdLower": "10",
-                "watchlist": false
-              }
-            ],
-            "group": "Memory Usage By Pod Name"
-          },
-          {
-            "metrics": [
-              {
-                "metricType": "ADVANCED",
-                "metricWeight": 1,
-                "nanStrategy": "ReplaceWithZero",
-                "accountName": "prometheus",
-                "riskDirection": "Higher",
-                "customThresholdHigher": 90,
-                "name": "sum(rate(http_server_requests_seconds_sum{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[5m])) / sum(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[5m]))",
-                "criticality": "Normal",
-                "customThresholdLower": "10",
-                "watchlist": false
-              }
-            ],
-            "group": "Application Latency"
-          },
-          {
-            "metrics": [
-              {
-                "metricType": "ADVANCED",
-                "metricWeight": 1,
-                "nanStrategy": "ReplaceWithZero",
-                "accountName": "prometheus",
-                "riskDirection": "Lower",
-                "customThresholdHigher": 50,
-                "name": "avg(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[5m]))",
-                "criticality": "Normal",
-                "customThresholdLower": 90,
-                "watchlist": false
-              }
-            ],
-            "group": "Application Request Rate"
-          },
-          {
-            "metrics": [
-              {
-                "metricType": "ADVANCED",
-                "metricWeight": 1,
-                "nanStrategy": "ReplaceWithZero",
-                "accountName": "prometheus",
-                "riskDirection": "Higher",
-                "customThresholdHigher": 70,
-                "name": "sum(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\",status=~\"^[4-5].*\"}[1m])) or vector(0)",
-                "criticality": "Normal",
-                "customThresholdLower": "10",
-                "watchlist": false
-              }
-            ],
-            "group": "Application Error Rate"
-          }
-        ]
-      },
-      "templateName": "prometheus-app-health-validator",
-      "advancedProvider": "PROMETHEUS"
-    }
+    accountName: prometheus-account-name
+    metricType: ADVANCED
+    advancedProvider: PROMETHEUS
+    metricTemplateSetup:
+      groups:
+        - metrics:
+            - name: "avg(container_memory_usage_bytes{namespace=\"${namespace_key}\", pod=~\"${pod_key}\"})"
+              riskDirection: higher
+          group: "Memory Usage By Pod Name"
+        - metrics:
+            - name: "avg(rate(container_cpu_usage_seconds_total{namespace=\"${namespace_key}\", pod=~\"${pod_key}\"}[1m]) * 100)"
+              riskDirection: higher
+          group: "CPU Usage By Pod Name"
+        - metrics:
+            - name: "sum(rate(http_server_requests_seconds_sum{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[1m])) / sum(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[1m]))"
+              riskDirection: higher
+          group: "Application Latency"
+        - metrics:
+            - name: "avg(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\"}[1m]))"
+              riskDirection: higherOrLower
+          group: "Application Request Rate"
+        - metrics:
+            - name: "sum(rate(http_server_requests_seconds_count{app=\"${app_name}\",kubernetes_pod_name=~\"${pod_key}\",status=~\"^[4-5].*\"}[1m])) or vector(0)"
+              riskDirection: higher
+          group: "Application Error Rate"
