@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datadog-k8s-infra-performance-ext
+data:
+  datadog-k8s-infra-performance-ext: |
+    accountName: datadog-account-name
+    metricType: ADVANCED
+    advancedProvider: DATADOG
+    metricTemplateSetup:
+      groups:
+        - metrics:
+            - name: "sum:kubernetes.cpu.requests{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Kube CPU Requests"
+        - metrics:
+            - name: "sum:kubernetes.memory.requests{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Kube Memory Requests"
+        - metrics:
+            - name: "sum:kubernetes.cpu.usage.total{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Kube CPU Used Mcores"
+        - metrics:
+            - name: "sum:kubernetes.memory.usage{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Kube Memory Used Gib"
+        - metrics:
+            - name: "per_second(sum:kubernetes.io.read_bytes{service:serviceKey,env:envKey,pod_name:podKey-*})"
+              riskDirection: lower
+          group: "Kube IO Read Tput"
+        - metrics:
+            - name: "per_second(sum:kubernetes.io.write_bytes{service:serviceKey,env:envKey,pod_name:podKey-*})"
+              riskDirection: lower
+          group: "Kube IO Write Tput"
+        - metrics:
+            - name: "sum:kubernetes_state.pod.status_phase{kube_namespace:namespaceKey,pod_phase:failed,pod_name:podKey-*,env:envKey}"
+              riskDirection: higher
+          group: "Failed Pods"
+        - metrics:
+            - name: "sum:kubernetes_state.replicaset.replicas_desired{env:envKey,service:serviceKey,kube_replica_set:podKey} - sum:kubernetes_state.replicaset.replicas_ready{env:envKey,service:serviceKey,kube_replica_set:podKey}"
+              riskDirection: higher
+          group: "Not Ready Replica Sets"
+        - metrics:
+            - name: "ssum:kubernetes_state.container.restarts{env:envKey,service:serviceKey,kube_replica_set:podKey} - sum:kubernetes_state.replicaset.replicas_ready{env:envKey,service:serviceKey,kube_replica_set:podKey}"
+              riskDirection: higher
+          group: "Container Restarts"
+        - metrics:
+            - name: "sum:kubernetes_state.container.terminated{env:envKey,service:serviceKey,kube_replica_set:podKey} - sum:kubernetes_state.replicaset.replicas_ready{env:envKey,service:serviceKey,kube_replica_set:podKey}"
+              riskDirection: higher
+          group: "Container Terminates"
