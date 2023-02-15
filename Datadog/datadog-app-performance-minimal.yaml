@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datadog-app-performance-min
+data:
+  datadog-app-performance-min: |
+    accountName: datadog-account-name
+    metricType: ADVANCED
+    advancedProvider: DATADOG
+    metricTemplateSetup:
+      groups:
+        - metrics:
+            - name: "max:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "Max Latency"
+        - metrics:
+            - name: "p95:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "95th Percentile"
+        - metrics:
+            - name: "p99:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "99th Percentile"
+        - metrics:
+            - name: "p90:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "90th Percentile"
+        - metrics:
+            - name: "sum:trace.servlet.request.errors{env:envKey,service:serviceKey,version:versionKey}.as_count()"
+              riskDirection: higher
+          group: "Application Error Count"
+        - metrics:
+            - name: "sum:trace.servlet.request.errors{env:envKey,service:serviceKey,version:versionKey}.as_rate()"
+              riskDirection: higher
+          group: "Application Error Rate"
+        - metrics:
+            - name: "sum:trace.servlet.request.hits{env:envKey,service:serviceKey,version:versionKey}.as_rate()"
+              riskDirection: higherOrLower
+          group: "Application Request Rate"
+        - metrics:
+            - name: "avg:trace.http.request.apdex{env:envKey,version:versionKey,service:serviceKey}"
+              riskDirection: Lower
+          group: "Apdex"
