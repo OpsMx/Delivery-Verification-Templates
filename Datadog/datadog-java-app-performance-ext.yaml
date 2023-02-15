@@ -1,0 +1,87 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: datadog-java-app-performance-ext
+data:
+  datadog-java-app-performance-ext: |
+    accountName: datadog-account-name
+    metricType: ADVANCED
+    advancedProvider: DATADOG
+    metricTemplateSetup:
+      groups:
+        - metrics:
+            - name: "max:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "Max Latency"
+        - metrics:
+            - name: "p95:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "95th Percentile"
+        - metrics:
+            - name: "p99:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "99th Percentile"
+        - metrics:
+            - name: "p90:trace.servlet.request{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "90th Percentile"
+        - metrics:
+            - name: "sum:trace.servlet.request.errors{env:envKey,service:serviceKey,version:versionKey}.as_count()"
+              riskDirection: higher
+          group: "Application Error Count"
+        - metrics:
+            - name: "sum:trace.servlet.request.errors{env:envKey,service:serviceKey,version:versionKey}.as_rate()"
+              riskDirection: higher
+          group: "Application Error Rate"
+        - metrics:
+            - name: "sum:trace.servlet.request.hits{env:envKey,service:serviceKey,version:versionKey}.as_rate()"
+              riskDirection: higherOrLower
+          group: "Application Request Rate"
+        - metrics:
+            - name: "avg:trace.http.request.apdex{env:envKey,version:versionKey,service:serviceKey}"
+              riskDirection: Lower
+          group: "Apdex"
+        - metrics:
+            - name: "avg:process.stat.container.cpu.total_pct{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Process CPU Pct"
+        - metrics:
+            - name: "process.stat.container.memory.rss.pct{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Process RSS Pct"
+        - metrics:
+            - name: "avg:process.stat.container.net.sent_bps{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Procress Tx Bytes"
+        - metrics:
+            - name: "avg:process.stat.container.net.rcvd_bps{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higher
+          group: "Process Rx Bytes"
+        - metrics:
+            - name: "avg:process.stat.container.io.rbps{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higherOrLower
+          group: "Process Disk Read BPS"
+        - metrics:
+            - name: "avg:process.stat.container.io.wbps{service:serviceKey,env:envKey,pod_name:podKey-*}"
+              riskDirection: higherOrLower
+          group: "Process Disk Write BPS"
+        - metrics:
+            - name: "avg:jvm.heap_memory{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "JVM Heap Memory"
+        - metrics:
+            - name: "avg:jvm.non_heap_memory{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "JVM Non-Heap Memory"
+        - metrics:
+            - name: "avg:jvm.gc.minor_collection_time{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "Minor GC Time"
+        - metrics:
+            - name: "avg:jvm.gc.major_collection_time{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "Major GC Time"
+        - metrics:
+            - name: "avg:jvm.thread_count{env:envKey,service:serviceKey,version:versionKey}"
+              riskDirection: higher
+          group: "JVM Thread Count"
